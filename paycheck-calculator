@@ -1,0 +1,53 @@
+# Ask what state is the user from, their marital status, how many hours of work and how much they are making by the hour
+
+state = input("What state do you live in?\n")
+
+filling_status = input("What is your marital status?\n")
+
+hourly_rate = float(input("How much are you making by the hour?\n"))
+
+hours = float(input("How many hours are you working this week?\n"))
+
+
+if filling_status.lower() == "single":
+    Federal_Tax_Rate = 0.10
+elif filling_status.lower() == "married":
+    Federal_Tax_Rate = 0.07
+else:
+    Federal_Tax_Rate = 0.0865
+
+if state.lower() in ["florida", "texas", "nevada", "washington", "alaska", "south dakota", "wyoming"]:
+    state_tax_rate = 0
+else:
+    state_tax_rate = 0.05
+
+# Calculate Gross Pay and Take Overtime if the criteria is met
+
+if hours > 40:
+    regular_pay = 40 * hourly_rate
+    overtime_hours = hours - 40
+    overtime_pay = overtime_hours * (hourly_rate * 1.5)
+    gross_pay = regular_pay + overtime_pay
+else:
+    gross_pay = hours * hourly_rate
+
+# Calculate Total Tax Rate and Take Home Pay (Add FICA for better results)
+
+FICA = 0.0765
+
+total_tax_rate = FICA + Federal_Tax_Rate + state_tax_rate
+
+take_home_pay = gross_pay * (1 - total_tax_rate)
+
+# Print Payment Summary
+
+print("Payment Summary")
+print("State:", str(state))
+print("Filling Status: ", str(filling_status))
+print("Hours: %.2f" %(hours))
+print("Hourly Salary: ", str(hourly_rate))
+print("Gross pay: $%.2f" %(gross_pay))
+print("Take Home Pay: $%.2f" %(take_home_pay))
+print("Estimated Taxes: %.2f" %(total_tax_rate*100),"%")
+      
+
